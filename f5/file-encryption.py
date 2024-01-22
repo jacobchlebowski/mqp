@@ -22,7 +22,7 @@ with open("filekey.key", "rb") as filekey:
 fernet = Fernet(key)
 
 # Specify the directory to encrypt
-directory_to_encrypt = "test"
+directory_to_encrypt = "DIRECTORY TO ENCRYPT"
 
 # Maximum time allowed for each encryption (in seconds)
 max_encryption_time = 5
