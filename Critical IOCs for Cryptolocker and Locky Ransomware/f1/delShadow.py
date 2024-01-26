@@ -28,3 +28,7 @@ with open(shadow_path, 'rb') as fp:
 # When done with file operations, clean up the shadow copies for a specific directory
 specific_directory = r'C:\foo'
 delete_shadow_copy(sc, specific_directory)
+
+
+
+print("Done")
