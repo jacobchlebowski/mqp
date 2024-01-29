@@ -1,0 +1,18 @@
+Sub EncryptFile(filePath As String)
+    ' Specify the GPG executable path
+    Dim gpgPath As String
+    gpgPath = "C:\Path\To\gpg.exe"
+
+    ' Specify the recipient's GPG key ID or email
+    Dim recipientKey As String
+    recipientKey = "recipient@example.com"
+
+    ' Build the command for encryption
+    Dim command As String
+    command = gpgPath & " --recipient " & recipientKey & " --output " & filePath & ".gpg --encrypt " & filePath
+
+    ' Run the encryption command
+    Dim shell As Object
+    shell = CreateUnoService("com.sun.star.system.SystemShellExecute")
+    shell.execute(command, "", 0)
+End Sub
