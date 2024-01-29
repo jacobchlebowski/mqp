@@ -13,7 +13,6 @@ Steps to run experiment 1, run 1.1 cryptolocker
 3) 'python get-pip.py'
 
 4) Install pip dependencies (this might not be all of them so if there's another error when running then just pip install those)
-- 'pip install subprocess'
 - 'pip install cryptography'
 - 'pip install requests'
 - 'pip install urllib3==1.26.6'
