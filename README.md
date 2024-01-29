@@ -19,6 +19,7 @@ Steps to run experiment 1, run 1.1 cryptolocker
 - 'pip install urllib3==1.26.6'
 
 5) Change the 'directory_to_encrypt' variabe to the desired directory
+- ex: C:\Users\Administrator\Desktop\
 
 
 5) 'python synthetic-cryptolocker.py'
