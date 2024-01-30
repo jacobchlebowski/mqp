@@ -40,6 +40,7 @@ def encrypt_directory(directory_to_encrypt):
         # Skip directories, only process files
         if os.path.isfile(filepath) and (os.path.getsize(filepath) < 100*1024*1024):
             start_time = time.time()
+            elapsed_time = time.time() - start_time
 
             try:
                 with open(filepath, "rb") as file:
