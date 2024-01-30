@@ -1,18 +1,45 @@
-Sub EncryptFile(filePath As String)
-    ' Specify the GPG executable path
-    Dim gpgPath As String
-    gpgPath = "C:\Path\To\gpg.exe"
+Option Explicit
 
-    ' Specify the recipient's GPG key ID or email
-    Dim recipientKey As String
-    recipientKey = "recipient@example.com"
+Sub EncryptFileWithKey(filePath As String, fileKey As String)
+    Dim fileURL As String
+    Dim outputFileURL As String
+    Dim input As Object
+    Dim output As Object
+    Dim cipher As Object
 
-    ' Build the command for encryption
-    Dim command As String
-    command = gpgPath & " --recipient " & recipientKey & " --output " & filePath & ".gpg --encrypt " & filePath
+    fileURL = ConvertToURL(filePath)
+    outputFileURL = ConvertToURL(filePath & ".encrypted")
 
-    ' Run the encryption command
-    Dim shell As Object
-    shell = CreateUnoService("com.sun.star.system.SystemShellExecute")
-    shell.execute(command, "", 0)
+    ' Load the input stream
+    input = createUnoService("com.sun.star.io.TextInputStream")
+    input.setInputStream(createUnoService("com.sun.star.io.FileInputStream"))
+    input.getTextInputStream().setInputStream(fileURL)
+
+    ' Load the output stream
+    output = createUnoService("com.sun.star.io.TextOutputStream")
+    output.getTextOutputStream().setOutputStream(outputFileURL)
+
+    ' Load the cipher
+    cipher = createUnoService("com.sun.star.security.Cipher")
+
+    ' Initialize the cipher with the key
+    cipher.initialize(com.sun.star.security.CipherAlgorithm.AES, com.sun.star.security.CipherMode.ENCRYPT, fileKey)
+
+    ' Encrypt and write to the output stream
+    Dim buffer(1023) As Byte
+    Dim bytesRead As Long
+
+    Do
+        bytesRead = input.readBytes(buffer(), UBound(buffer) + 1)
+        If bytesRead > 0 Then
+            buffer() = cipher.doFinal(buffer(), bytesRead)
+            output.writeBytes(buffer(), UBound(buffer) + 1)
+        End If
+    Loop Until bytesRead = 0
+
+    ' Close the streams
+    input.closeInput()
+    output.closeOutput()
+
+    MsgBox "File encrypted successfully!", 64, "Encryption Complete"
 End Sub
