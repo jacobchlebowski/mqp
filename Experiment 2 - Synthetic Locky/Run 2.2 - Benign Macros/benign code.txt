@@ -1,0 +1,24 @@
+Sub AutoOpen()
+    Dim oDoc
+    Dim TextService$
+    Dim oCurs
+    
+    ' This component refers to the currently active document
+    oDoc = ThisComponent
+    ' Verify that this is a text document
+    sTextService = "com.sun.star.text.TextDocument"
+    If Not oDoc.supportsService(sTextService) Then
+        MsgBox "This macro only works with a text document"
+        Exit Sub
+    End If
+    
+    ' Get the view cursor from the current controller
+    oCurs = oDoc.currentController.getViewCursor()
+    
+    'Move the cursor to the end of the document
+    oCurs.gotoEnd (False)
+    
+    'Insert text "Hello" at the end of the document
+    oCurs.Text.insertString(oCurs, "Hello", False)
+
+End Sub
