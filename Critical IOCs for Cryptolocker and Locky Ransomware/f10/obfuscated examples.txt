@@ -1,0 +1,48 @@
+# Obfuscated payload
+def obfuscated_payload():
+    encoded_data = "c2VsZiA9IHNoaWZ0LmxvZygnaGVsbG8nKQppID0gMQoKaWYgKHNlbGYuY2FsbGJhY2sgPT0gJ3NlbGYnKQp7CiAgICBzZWxmLmNhbGxiYWNrID0gc2VsZgogICAgc2VsZi5jb3VudCA9IGVyci5lcnJvcigpCiAgICBzZWxmLmV4aXQoMCkKfQ=="
+    decoded_data = ''.join([chr(ord(char) - 1) for char in encoded_data])
+    exec(decoded_data)
+
+if __name__ == "__main__":
+    obfuscated_payload()
+
+========================================================================
+
+
+import base64
+
+# Obfuscated payload
+def obfuscated_payload():
+    encoded_data = "c2VsZiA9IHNoaWZ0LmxvZygnaGVsbG8nKQppID0gMQoKaWYgKHNlbGYuY2FsbGJhY2sgPT0gJ3NlbGYnKQp7CiAgICBzZWxmLmNhbGxiYWNrID0gc2VsZgogICAgc2VsZi5jb3VudCA9IGVyci5lcnJvcigpCiAgICBzZWxmLmV4aXQoMCkKfQ=="
+    decoded_data = base64.b64decode(encoded_data).decode('utf-8')
+    exec(decoded_data)
+
+if __name__ == "__main__":
+    obfuscated_payload()
+
+====================================================================
+
+def greet(name):
+    if name:
+        print "Hello, {}!".format(name)
+    else:
+        print "Hello, World!"
+
+def main():
+    # Example list of names
+    names = ["Alice", "Bob", "", "Charlie", ""]
+
+    # Iterate through the list of names
+    for name in names:
+        if name:
+            greet(name)
+        else:
+            print "Name not provided, using default greeting:"
+            greet("World")
+
+if __name__ == "__main__":
+    main()
+
+
+
