@@ -1,7 +1,9 @@
 # mqp
 MQP - OS Isolation
 
-Steps to run experiment 1, run 1.1 cryptolocker
+These experiments should be run while [Keylogger](https://github.com/jacobchlebowski/Keylogger) is running for UI data collection
+
+Steps to run experiment 1, run 1.1 synthetic cryptolocker (this should be run within the windows 7 sandbox environment through cuckoo. You may need to install the dependencies first within the sandbox)
 
 1) Install [Python 3.7](https://www.python.org/ftp/python/3.7.0/python-3.7.0-amd64.exe)
 - I believe 3.7 and up is fine, but try to stay closer to 3.7
@@ -22,3 +24,16 @@ Steps to run experiment 1, run 1.1 cryptolocker
 
 
 5) 'python synthetic-cryptolocker.py'
+
+
+
+Steps to run experiment 1, run 1.2 synthetic locky
+
+1) Ensure LibreOffice is installed within the windows 7 sandbox environment
+
+2) Open up LibreOffice and go to tools > macros security > and make sure that the security is on *low* so that any macros file can run
+
+3) Run the .docm file through cuckoo
+
+
+If you followed experiment 1 correctly, all of the benign scenarios in experiment 3 should be easily run with cuckoo
